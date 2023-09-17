@@ -147,7 +147,14 @@ class Tetraedr{
     public:
         Tetraedr(Point A, Point B, Point C, Point D): P1(A), P2(B), P3(C), P4(D) {}
 
-        bool Intersection(const Tetraedr& X, const Tetraedr& Y){
+        bool intersection(const Tetraedr& tetr){
+            // проходим проверяем пересечение с 4 плоскостями
+            // если не находим, то смотрим с какой стороны одна из точек tetr и пишем ответ
+            return false;
+        }
+
+        bool intersection(const Plane& plane){
+            // тетраэдр разбивается на отрезки, все 6 отрезков проверяются на пересечение
             return false;
         }
 
@@ -158,5 +165,18 @@ class Tetraedr{
         Point P4;
 };
 
+int count_intersections(const int N){
+    set <int> intersected;
+    Tetraedr* spisok[N];
+    for (int i = 0; i < N; i++){
+        // вводим тетраэдр
+        // дальше проходимся по списку, смотрим, с какими пересечение есть
+        // добавляем их в множество
+    }
+    for (auto i : intersected){
+        cout << i;
+    }
+    return intersected.size();
+}
 
 #endif
