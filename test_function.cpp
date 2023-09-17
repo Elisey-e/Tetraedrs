@@ -1,7 +1,9 @@
 #include "calc.hpp"
 
 int main(){
-    Tetraedrs test;
+    Point test(1, 20, 5);
+
+    cout << test << endl;
     
     // while (test.init_data()){
     //     cout << "Perfect cache result: ";

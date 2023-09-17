@@ -14,17 +14,37 @@ using std::cin, std::cout, std::endl, std::unordered_map, std::vector, std::list
 #define ONE_USED  1
 #define ZERO_USED 0
 
-class Tetraedrs{
+class Point{
     public:
-
-        int hash_f(int x){
-            return x % 1000;
+        Point(int a, int b, int c){
+            c1 = a;
+            c2 = b;
+            c3 = c;
         }
+
+        int x() const {return c1;}
+        int y() const {return c2;}
+        int z() const {return c3;}
+
+        Point operator + (const Point& other){
+            return Point{c1 + other.c1, c2 + other.c2, c3 + other.c3};
+        }
+    private:
+        int c1;
+        int c2;
+        int c3;
+};
+
+std::ostream& operator << (std::ostream& stream, const Point& point){
+    stream << "(" << point.x() << ", " << point.y() << ", " << point.z() << ")";
+    return stream;
+}
+
+class Tetraedr{
+    public:
         
     private:
-        vector <int> data = {};
-        int size_of_cache = 0;
-        int el_count = 0;
+
 };
 
 
