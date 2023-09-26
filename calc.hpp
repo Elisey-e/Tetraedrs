@@ -14,84 +14,89 @@ using std::cin, std::cout, std::endl, std::unordered_map, std::vector, std::list
 #define ONE_USED  1
 #define ZERO_USED 0
 
+template <typename point_t>
 class Point{
     public:
 
-        Point(int a, int b, int c): c1(a), c2(b), c3(c) {}
+        Point(point_t a, point_t b, point_t c): c1(a), c2(b), c3(c) {}
 
-        int x() const {return c1;}
-        int y() const {return c2;}
-        int z() const {return c3;}
+        point_t x() const {return c1;}
+        point_t y() const {return c2;}
+        point_t z() const {return c3;}
 
-        Point operator + (const Point& other){
+        Point operator + (const Point<point_t>& other){
             return Point{c1 + other.c1, c2 + other.c2, c3 + other.c3};
         }
 
-        Point operator = (const Point& other){
+        Point operator = (const Point<point_t>& other){
             c1 = other.c1;
             c2 = other.c2;
             c3 = other.c3;
             return *this;
         }
 
-        Point operator - (const Point& other){
+        Point operator - (const Point<point_t>& other){
             return Point{c1 - other.c1, c2 - other.c2, c3 - other.c3};
         }
 
     private:
-        int c1;
-        int c2;
-        int c3;
+        point_t c1;
+        point_t c2;
+        point_t c3;
 };
 
-std::ostream& operator << (std::ostream& stream, const Point& point){
+template <typename point_t>
+std::ostream& operator << (std::ostream& stream, const Point<point_t>& point){
     stream << "(" << point.x() << ", " << point.y() << ", " << point.z() << ")";
     return stream;
 }
 
+template <typename point_t>
 class V_Line{                   // Вектор, ориентированная линия
     public:
-        V_Line(Point A, Point B): P1(A), P2(B) {}
+        V_Line(Point<point_t> A, Point<point_t> B): P1(A), P2(B) {}
 
-        Point first() const {return P1;}
-        Point last()  const {return P2;}
+        Point<point_t> first() const {return P1;}
+        Point<point_t> last()  const {return P2;}
 
-        V_Line operator + (const V_Line& other){
+        V_Line operator + (const V_Line<point_t>& other){
             return V_Line(P1, P2 + other.P2 - other.P1);
         }
 
-        V_Line operator - (const V_Line& other){
+        V_Line operator - (const V_Line<point_t>& other){
             return V_Line(P1, P2 - other.P2 + other.P1);
         }
 
-        V_Line operator = (const V_Line& other){
+        V_Line operator = (const V_Line<point_t>& other){
             P1 = other.P1;
             P2 = other.P2;
             return *this;
         }
 
     private:
-        Point P1;
-        Point P2;
+        Point<point_t> P1;
+        Point<point_t> P2;
 };
 
-std::ostream& operator << (std::ostream& stream, const V_Line& line){
+template <typename point_t>
+std::ostream& operator << (std::ostream& stream, const V_Line<point_t>& line){
     stream << "[" << line.first() << " / " << line.last() << "]";
     return stream;
 }
 
+template <typename point_t>
 class Plane{
     public:
-        Plane(Point A, Point B, Point C): P1(A), P2(B), P3(C) {}
+        Plane(Point<point_t> A, Point<point_t> B, Point<point_t> C): P1(A), P2(B), P3(C) {}
 
-        bool intersection(const V_Line& otrezok){
+        bool intersection(const V_Line<point_t>& otrezok){
             if (not is_coeff_calced){
                 calc_coeff();
                 is_coeff_calced = true;
             }
 
-            long long int first_d = otrezok.first().x() * CA + otrezok.first().y() * CB + otrezok.first().z() * CC - CD;
-            long long int last_d  = otrezok.last() .x() * CA + otrezok.last() .y() * CB + otrezok.last() .z() * CC - CD;
+            long long point_t first_d = otrezok.first().x() * CA + otrezok.first().y() * CB + otrezok.first().z() * CC - CD;
+            long long point_t last_d  = otrezok.last() .x() * CA + otrezok.last() .y() * CB + otrezok.last() .z() * CC - CD;
 
             if (first_d == 0 || last_d == 0 || first_d > 0 && last_d < 0 || first_d < 0 && last_d > 0){
                 return true;
@@ -100,13 +105,13 @@ class Plane{
             return false;
         }
 
-        int side_of_point(const Point& point){
+        int side_of_point(const Point<point_t>& point){
             if (not is_coeff_calced){
                 calc_coeff();
                 is_coeff_calced = true;
             }
 
-            long long int side = point.x() * CA + point.y() * CB + point.z() * CC - CD;
+            long long point_t side = point.x() * CA + point.y() * CB + point.z() * CC - CD;
             if      (side > 0){
                 return 1;           // Point is above the plane in right basis
             }
@@ -133,50 +138,14 @@ class Plane{
         }
 
     private:
-        Point P1;
-        Point P2;
-        Point P3;
-        long long int CA;
-        long long int CB;
-        long long int CC;
-        long long int CD;
+        Point<point_t> P1;
+        Point<point_t> P2;
+        Point<point_t> P3;
+        long long point_t CA;
+        long long point_t CB;
+        long long point_t CC;
+        long long point_t CD;
         bool is_coeff_calced = false;
 };
-
-class Tetraedr{
-    public:
-        Tetraedr(Point A, Point B, Point C, Point D): P1(A), P2(B), P3(C), P4(D) {}
-
-        bool intersection(const Tetraedr& tetr){
-            // проходим проверяем пересечение с 4 плоскостями
-            // если не находим, то смотрим с какой стороны одна из точек tetr и пишем ответ
-            return false;
-        }
-
-        bool intersection(const Plane& plane){
-            // тетраэдр разбивается на отрезки, все 6 отрезков проверяются на пересечение
-            return false;
-        }
-
-    private:
-        Point P1;
-        Point P2;
-        Point P3;
-        Point P4;
-};
-
-int count_intersections(const int N){
-    set <int> intersected;
-    Tetraedr* spisok[N];
-    for (int i = 0; i < N; i++){
-        // вводим тетраэдр
-        // дальше проходимся по списку, смотрим, с какими пересечение есть
-        // добавляем их в множество
-    }
-    for (auto i : intersected){
-        cout << i;
-    }
-    return intersected.size();
-}
 
 #endif

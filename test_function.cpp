@@ -1,10 +1,10 @@
 #include "calc.hpp"
 
 int main(){
-    Point test(1, 20, 5);
-    Point test2(0, 1, 5);
+    Point <int> test(1, 20, 5);
+    Point <int> test2(0, 1, 5);
 
-    // cout << test << endl;
+    cout << test << endl;
 
     // vector <Point> ok;
 
@@ -12,7 +12,9 @@ int main(){
 
     // cout << ok[0] << endl;
 
-    V_Line line(test, test2);
+
+
+    V_Line <int> line(test, test2);
 
     cout << line << endl;
 
