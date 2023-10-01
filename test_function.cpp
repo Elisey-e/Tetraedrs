@@ -1,8 +1,8 @@
 #include "calc.hpp"
 
 int main(){
-    Point <int> test(1, 20, 5);
-    Point <int> test2(0, 1, 5);
+    Point <coord_t> test(1, 20, 5);
+    Point <coord_t> test2(0, 1, 5);
 
     cout << test << endl;
 
@@ -14,7 +14,7 @@ int main(){
 
 
 
-    V_Line <int> line(test, test2);
+    V_Line <coord_t> line(test, test2);
 
     cout << line << endl;
 
