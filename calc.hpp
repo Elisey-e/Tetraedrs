@@ -17,10 +17,16 @@ using std::cin, std::cout, std::endl, std::unordered_map, std::vector, std::list
 
 using coord_t = double;
 
+template <typename point_t> class Point;
+template <typename point_t> class V_Line;
+template <typename point_t> class Plane;
+template <typename point_t> class Triangle;
+template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Plane<point_t>& plane);
+
 template <typename point_t>
 class Point{
-    friend class Plane;
-    friend class Triangle;
+    friend class Plane<point_t>;
+    friend class Triangle<point_t>;
     public:
         bool is_point_nan = false;
 
@@ -60,7 +66,7 @@ std::ostream& operator << (std::ostream& stream, const Point<point_t>& point){
 
 template <typename point_t>
 class V_Line{                   // Вектор, ориентированная линия
-    friend class Plane;
+    friend class Plane<point_t>;
     public:
         V_Line(Point<point_t> A, Point<point_t> B): P1(A), P2(B) {}
 
@@ -104,7 +110,8 @@ std::ostream& operator << (std::ostream& stream, const V_Line<point_t>& line){
 
 template <typename point_t>
 class Plane{
-    friend class Triangle;
+    friend class Triangle<point_t>;
+    friend std::ostream& operator << <>(std::ostream&, const Plane&);
     public:
         Plane(Point<point_t> A, Point<point_t> B, Point<point_t> C): P1(A), P2(B), P3(C) {}
 
@@ -176,6 +183,7 @@ class Plane{
                 + P1.y() * P2.z() * P3.x()
                 + P1.z() * P2.x() * P3.y()
                 - P1.z() * P2.y() * P3.x();
+            cout << "\n\n" << CD << "\n\n";
             CA /= CD;
             CB /= CD;
             CC /= CD;
@@ -213,7 +221,22 @@ class Plane{
         point_t CD;
         
         bool is_coeff_calced = false;
+        bool print_point_form = false;
 };
+
+template <typename point_t>
+std::ostream& operator << (std::ostream& stream, const Plane<point_t>& plane){
+    if (not plane.is_coeff_calced && not plane.print_point_form){
+        stream << "Undefined coefficients";
+    }
+    else if (plane.print_point_form){
+        stream << "(" << plane.P1 << ", " << plane.P2 << ", " << plane.P3 << ")";
+    }
+    else{
+        stream << std::round(plane.CA * 100) / 100 << "X + " << std::round(plane.CB * 100) / 100 << "Y + " << std::round(plane.CC * 100) / 100 << "Z - 1 = 0";
+    }
+    return stream;
+}
 
 
 template <typename point_t>
@@ -322,6 +345,11 @@ class Triangle{
         
 };
 
+// template <typename point_t>
+// std::ostream& operator << (std::ostream& stream, const Triangle<point_t>& treg){
+//     stream << "(" << std::round(treg.Pl.P1 * 100) << ", " << std::round(treg.Pl.P2 * 100) << ", " << std::round(treg.Pl.P3 * 100) << ")";
+//     return stream;
+// }
 
 
 #endif

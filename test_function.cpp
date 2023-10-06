@@ -18,7 +18,15 @@ int main(){
 
     cout << line << endl;
 
-    
+    Triangle <coord_t> treg{{1, 1, 2}, {0, 0, 0}, {1, 2, 0}};
+
+    //cout << treg << endl;
+
+    Plane <coord_t> pl{{1, 1, 5}, {3, 2, 3}, {4, 4, 4}};
+    pl.calc_coeff();
+
+    cout << pl << endl;
+
     
     // while (test.init_data()){
     //     cout << "Perfect cache result: ";
