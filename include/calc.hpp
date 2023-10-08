@@ -168,7 +168,7 @@ class Plane{
             point_t dist1 = normal_distance(line.P1);
             point_t dist2 = normal_distance(line.P2);
 
-            if (dist1 > 0 && dist2 > 0 || dist1 < 0 && dist2 < 0){
+            if ((dist1 > 0 && dist2 > 0) || (dist1 < 0 && dist2 < 0)){
                 Point <point_t> ans(0, 0, 0);
                 ans.is_point_nan = true;
                 return ans;
@@ -177,8 +177,8 @@ class Plane{
                 dist1 = abs(dist1);
                 dist2 = abs(dist2);
                 Point <point_t> ans((line.P1.c1 * dist2 + line.P2.c1 * dist1) / (dist1 + dist2),
-                                    (line.P1.c1 * dist2 + line.P2.c1 * dist1) / (dist1 + dist2),
-                                    (line.P1.c1 * dist2 + line.P2.c1 * dist1) / (dist1 + dist2));
+                                    (line.P1.c2 * dist2 + line.P2.c2 * dist1) / (dist1 + dist2),
+                                    (line.P1.c3 * dist2 + line.P2.c3 * dist1) / (dist1 + dist2));
                 return ans;
             }
         }
