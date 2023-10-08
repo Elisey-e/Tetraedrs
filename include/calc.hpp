@@ -40,17 +40,27 @@ class Point{
             return Point{c1 + other.c1, c2 + other.c2, c3 + other.c3};
         }
 
-        Point operator = (const Point<point_t>& other){
-            c1 = other.c1;
-            c2 = other.c2;
-            c3 = other.c3;
-            is_point_nan = other.is_point_nan;
-            return *this;
-        }
+        // Point operator = (const Point<point_t>& other){
+        //     c1 = other.c1;
+        //     c2 = other.c2;
+        //     c3 = other.c3;
+        //     is_point_nan = other.is_point_nan;
+        //     return *this;
+        // }
 
         Point operator - (const Point<point_t>& other){
             return Point{c1 - other.c1, c2 - other.c2, c3 - other.c3};
         }
+
+        // ~Point() = default;
+
+        // Point(const Point& other) = default;
+
+        // Point(Point&& other) = default;
+
+        // Point& operator = (Point&& other) = default;
+
+
 
     private:
         point_t c1;
@@ -183,12 +193,14 @@ class Plane{
                 + P1.y() * P2.z() * P3.x()
                 + P1.z() * P2.x() * P3.y()
                 - P1.z() * P2.y() * P3.x();
-            cout << "\n\n" << CD << "\n\n";
-            CA /= CD;
-            CB /= CD;
-            CC /= CD;
-            CD = -1;
+            if (CD != 0){
+                CA /= CD;
+                CB /= CD;
+                CC /= CD;
+                CD = -1;
+            }
             is_coeff_calced = true;
+            
             return;
         }
 
@@ -233,7 +245,7 @@ std::ostream& operator << (std::ostream& stream, const Plane<point_t>& plane){
         stream << "(" << plane.P1 << ", " << plane.P2 << ", " << plane.P3 << ")";
     }
     else{
-        stream << std::round(plane.CA * 100) / 100 << "X + " << std::round(plane.CB * 100) / 100 << "Y + " << std::round(plane.CC * 100) / 100 << "Z - 1 = 0";
+        stream << std::round(plane.CA * 100) / 100 << "X + " << std::round(plane.CB * 100) / 100 << "Y + " << std::round(plane.CC * 100) / 100 << "Z + " << std::round(plane.CD * 100) / 100 << " = 0";
     }
     return stream;
 }
@@ -242,7 +254,7 @@ std::ostream& operator << (std::ostream& stream, const Plane<point_t>& plane){
 template <typename point_t>
 class Triangle{
     public:
-        Triangle(Point<point_t> A, Point<point_t> B, Point<point_t> C): Pl(A, B, C), L1(A, B), L2(B, C), L3(C, A) {
+        Triangle(Point<point_t> A, Point<point_t> B, Point<point_t> C): Pl{A, B, C}, L1{A, B}, L2{B, C}, L3{C, A} {
             Pl.calc_coeff();
             L1.calc_len();
             L2.calc_len();
