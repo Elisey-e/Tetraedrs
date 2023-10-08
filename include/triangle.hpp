@@ -45,19 +45,21 @@ class Triangle{
 
             inter = treug.Pl.intersect_with_line(L1);
             if (not inter.is_point_nan){
-                return is_point_in_triangle(inter);
+                if(treug.is_point_in_triangle(inter)){
+                    return true;
+                }
             }
 
             inter = treug.Pl.intersect_with_line(L2);
             if (not inter.is_point_nan){
-                if(is_point_in_triangle(inter)){
+                if(treug.is_point_in_triangle(inter)){
                     return true;
                 }
             }
 
             inter = treug.Pl.intersect_with_line(L3);
             if (not inter.is_point_nan){
-                if(is_point_in_triangle(inter)){
+                if(treug.is_point_in_triangle(inter)){
                     return true;
                 }
             }
@@ -86,7 +88,7 @@ class Triangle{
             return;
         }
         
-        bool is_point_in_triangle(const Point<point_t>& point){
+        bool is_point_in_triangle(const Point<point_t>& point) const{
             if (not num_of_2d_reduced_coord){
                 throw "triangle not reduced to 2d!";
             }
@@ -113,8 +115,6 @@ class Triangle{
             default:
                 break;
             }
-            cout << point << " ";
-            cout << len1 << " " << len2 << " " << len3 << endl;
             if ((len1 > 0 && len2 > 0 && len3 > 0) || (len1 < 0 && len2 < 0 && len3 < 0)){
                 return true;
             }
