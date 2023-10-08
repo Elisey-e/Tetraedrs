@@ -161,7 +161,7 @@ class Plane{
             if (not is_coeff_calced){
                 calc_coeff();
             }
-            return CA * point.x() + CB * point.y() + CC * point.z() + CD;
+            return (CA * point.x() + CB * point.y() + CC * point.z() + CD) / abs_of_normal_vector;
         }
 
         Point <point_t> intersect_with_line(const V_Line<point_t>& line){
@@ -188,17 +188,7 @@ class Plane{
             CB = -(P2.x() - P1.x()) * (P3.z() - P1.z()) + (P3.x() - P1.x()) * (P2.z() - P1.z());
             CC =  (P2.x() - P1.x()) * (P3.y() - P1.y()) - (P3.x() - P1.x()) * (P2.y() - P1.y());
             CD = -(CA * P1.x() + CB * P1.y() + CC * P1.z());
-
-
-            // CA = (P2.y() - P2.x()) * P3.z() + (P2.x() - P2.z()) * P3.y() + (P2.z() - P2.y()) * P3.x();
-            // CB = (P3.y() - P3.x()) * P1.z() + (P3.x() - P3.z()) * P1.y() + (P3.z() - P3.y()) * P1.x();
-            // CC = (P1.y() - P1.x()) * P2.z() + (P1.x() - P1.z()) * P2.y() + (P1.z() - P1.y()) * P2.x();
-            // CD =  P1.x() * P2.y() * P3.z()
-            //     - P1.x() * P2.z() * P3.y()
-            //     - P1.y() * P2.x() * P3.z()
-            //     + P1.y() * P2.z() * P3.x()
-            //     + P1.z() * P2.x() * P3.y()
-            //     - P1.z() * P2.y() * P3.x();
+            abs_of_normal_vector = std::sqrt(CA * CA + CB * CB + CC * CC);
             is_coeff_calced = true;
             
             return;
@@ -231,6 +221,8 @@ class Plane{
         point_t CB;
         point_t CC;
         point_t CD;
+
+        point_t abs_of_normal_vector;
         
         bool is_coeff_calced = false;
         bool print_point_form = false;

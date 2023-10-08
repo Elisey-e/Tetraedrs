@@ -17,8 +17,10 @@ int main(){
 
     //cout << treg << endl;
 
-    Plane <coord_t> pl{{1, 1, 0}, {1, 4, 0}, {1, 5, 1}};
+    Plane <coord_t> pl{{1, 1, 1}, {56, 27, 1}, {1, 5, 1}};
     pl.calc_coeff();
+
+    cout << pl.normal_distance(test) << endl;
 
     cout << pl << endl;
 
