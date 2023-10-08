@@ -12,6 +12,7 @@ class Triangle{
             L1.calc_len();
             L2.calc_len();
             L3.calc_len();
+            Pl.print_point_form = true;
             reduce_triangle_to_2d();
         }
 
@@ -123,7 +124,7 @@ class Triangle{
 
 template <typename point_t>
 std::ostream& operator << (std::ostream& stream, const Triangle<point_t>& treg){
-    stream << "(" << treg.Pl.P1 << ", " << treg.Pl.P2 << ", " << treg.Pl.P3 << ")";
+    stream << treg.Pl;
     return stream;
 }
 

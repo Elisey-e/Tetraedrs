@@ -21,11 +21,11 @@ class V_Line{                   // Вектор, ориентированная 
             return V_Line(P1, P2 - other.P2 + other.P1);
         }
 
-        V_Line operator = (const V_Line<point_t>& other){
-            P1 = other.P1;
-            P2 = other.P2;
-            return *this;
-        }
+        // V_Line operator = (const V_Line<point_t>& other){
+        //     P1 = other.P1;
+        //     P2 = other.P2;
+        //     return *this;
+        // }
 
         void calc_len(){
             lenght=sqrt((P1.x() - P2.x()) * (P1.x() - P2.x()) +
