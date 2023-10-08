@@ -13,27 +13,24 @@ int main(){
 
     // cout << ok[0] << endl;
 
-    //Triangle <coord_t> treg{{1, 1, 2}, {0, 0, 0}, {1, 2, 0}};
+    Triangle <coord_t> treg{{10, 10, 0}, {-10, 10, 0}, {0, -15, 0}};
 
-    V_Line lne{test, test2};
+    // V_Line lne{test, test2};
 
     //cout << treg << endl;
 
-    Plane <coord_t> pl{{1, 1, 1}, {56, 27, 1}, {1, 5, 1}};
-    pl.calc_coeff();
+    // Plane <coord_t> pl{{1, 1, 1}, {56, 27, 1}, {1, 5, 1}};
+    // pl.calc_coeff();
 
-    cout << pl.normal_distance(test) << endl;
+    // cout << pl.normal_distance(test) << endl;
 
-    cout << pl.intersect_with_line(lne) << endl;
+    // cout << pl.intersect_with_line(lne) << endl;
 
-    cout << pl << endl;
+    // cout << pl << endl;
 
-    // while (test.init_data()){
-    //     cout << "Perfect cache result: ";
-    //     test.lfu_cache();
-    //     cout << "LFU cache result: ";
-    //     test.perfect_cache();
-    // }
+    Triangle <coord_t> treg2{{0, 0, 1}, {0, 0, 2}, {1, 1, 2}};
+
+    cout << treg.is_intersection(treg2) << endl;
 
     return 0;
 }

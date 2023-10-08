@@ -157,14 +157,14 @@ class Plane{
         //     }
         // }
 
-        point_t normal_distance(const Point<point_t>& point){
+        point_t normal_distance(const Point<point_t>& point) const{
             if (not is_coeff_calced){
-                calc_coeff();
+                throw "coefficients not calced!";       // Can be raised only if method used by user
             }
             return (CA * point.x() + CB * point.y() + CC * point.z() + CD) / abs_of_normal_vector;
         }
 
-        Point <point_t> intersect_with_line(const V_Line<point_t>& line){
+        Point <point_t> intersect_with_line(const V_Line<point_t>& line) const{
             point_t dist1 = normal_distance(line.P1);
             point_t dist2 = normal_distance(line.P2);
 
@@ -251,6 +251,7 @@ class Triangle{
             L1.calc_len();
             L2.calc_len();
             L3.calc_len();
+            reduce_triangle_to_2d();
         }
 
         bool is_intersection(const Triangle<point_t>& treug){
@@ -261,32 +262,42 @@ class Triangle{
             Point <point_t> inter = Pl.intersect_with_line(treug.L1);
 
             if (not inter.is_point_nan){
-                return true;
+                if(is_point_in_triangle(inter)){
+                    return true;
+                }
             }
 
             inter = Pl.intersect_with_line(treug.L2);
             if (not inter.is_point_nan){
-                return true;
+                if(is_point_in_triangle(inter)){
+                    return true;
+                }
             }
 
             inter = Pl.intersect_with_line(treug.L3);
             if (not inter.is_point_nan){
-                return true;
+                if(is_point_in_triangle(inter)){
+                    return true;
+                }
             }
 
             inter = treug.Pl.intersect_with_line(L1);
             if (not inter.is_point_nan){
-                return true;
+                return is_point_in_triangle(inter);
             }
 
             inter = treug.Pl.intersect_with_line(L2);
             if (not inter.is_point_nan){
-                return true;
+                if(is_point_in_triangle(inter)){
+                    return true;
+                }
             }
 
             inter = treug.Pl.intersect_with_line(L3);
             if (not inter.is_point_nan){
-                return true;
+                if(is_point_in_triangle(inter)){
+                    return true;
+                }
             }
 
             return false;
@@ -301,13 +312,13 @@ class Triangle{
         int num_of_2d_reduced_coord = 0;
 
         void reduce_triangle_to_2d(){
-            if (Pl.CA > Pl.CB && Pl.CA > Pl.CC){
+            if (Pl.CA >= Pl.CB && Pl.CA >= Pl.CC){
                 num_of_2d_reduced_coord = 1;
             }
-            if (Pl.CB > Pl.CA && Pl.CB > Pl.CC){
+            if (Pl.CB >= Pl.CA && Pl.CB >= Pl.CC){
                 num_of_2d_reduced_coord = 2;
             }
-            if (Pl.CC > Pl.CA && Pl.CC > Pl.CB){
+            if (Pl.CC >= Pl.CA && Pl.CC >= Pl.CB){
                 num_of_2d_reduced_coord = 3;
             }
             return;
@@ -315,7 +326,7 @@ class Triangle{
         
         bool is_point_in_triangle(const Point<point_t>& point){
             if (not num_of_2d_reduced_coord){
-                reduce_triangle_to_2d();
+                throw "triangle not reduced to 2d!";
             }
             point_t len1 = 0;
             point_t len2 = 0;
@@ -325,28 +336,28 @@ class Triangle{
             case 1:
                 len1 = (Pl.P1.c2 - point.c2) * (Pl.P2.c3 - Pl.P1.c3) - (Pl.P2.c2 - Pl.P1.c2) * (Pl.P1.c3 - point.c3);
                 len2 = (Pl.P2.c2 - point.c2) * (Pl.P3.c3 - Pl.P2.c3) - (Pl.P3.c2 - Pl.P2.c2) * (Pl.P2.c3 - point.c3);
-                len1 = (Pl.P3.c2 - point.c2) * (Pl.P1.c3 - Pl.P3.c3) - (Pl.P1.c2 - Pl.P3.c2) * (Pl.P3.c3 - point.c3);
+                len3 = (Pl.P3.c2 - point.c2) * (Pl.P1.c3 - Pl.P3.c3) - (Pl.P1.c2 - Pl.P3.c2) * (Pl.P3.c3 - point.c3);
                 break;
             case 2:
                 len1 = (Pl.P1.c1 - point.c1) * (Pl.P2.c3 - Pl.P1.c3) - (Pl.P2.c1 - Pl.P1.c1) * (Pl.P1.c3 - point.c3);
                 len2 = (Pl.P2.c1 - point.c1) * (Pl.P3.c3 - Pl.P2.c3) - (Pl.P3.c1 - Pl.P2.c1) * (Pl.P2.c3 - point.c3);
-                len1 = (Pl.P3.c1 - point.c1) * (Pl.P1.c3 - Pl.P3.c3) - (Pl.P1.c1 - Pl.P3.c1) * (Pl.P3.c3 - point.c3);
+                len3 = (Pl.P3.c1 - point.c1) * (Pl.P1.c3 - Pl.P3.c3) - (Pl.P1.c1 - Pl.P3.c1) * (Pl.P3.c3 - point.c3);
                 break;
             case 3:
                 len1 = (Pl.P1.c1 - point.c1) * (Pl.P2.c2 - Pl.P1.c2) - (Pl.P2.c1 - Pl.P1.c1) * (Pl.P1.c2 - point.c2);
                 len2 = (Pl.P2.c1 - point.c1) * (Pl.P3.c2 - Pl.P2.c2) - (Pl.P3.c1 - Pl.P2.c1) * (Pl.P2.c2 - point.c2);
-                len1 = (Pl.P3.c1 - point.c1) * (Pl.P1.c2 - Pl.P3.c2) - (Pl.P1.c1 - Pl.P3.c1) * (Pl.P3.c2 - point.c2);
+                len3 = (Pl.P3.c1 - point.c1) * (Pl.P1.c2 - Pl.P3.c2) - (Pl.P1.c1 - Pl.P3.c1) * (Pl.P3.c2 - point.c2);
                 break;
             default:
                 break;
             }
-            if (len1 > 0 && len2 > 0 && len3 > 0 || len1 < 0 && len2 < 0 && len3 < 0){
+            cout << point << " ";
+            cout << len1 << " " << len2 << " " << len3 << endl;
+            if ((len1 > 0 && len2 > 0 && len3 > 0) || (len1 < 0 && len2 < 0 && len3 < 0)){
                 return true;
             }
             return false;
         }
-
-        
 };
 
 // template <typename point_t>
