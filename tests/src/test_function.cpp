@@ -13,11 +13,11 @@ int main(){
 
     // cout << ok[0] << endl;
 
-    Triangle <coord_t> treg{{1, 1, 2}, {0, 0, 0}, {1, 2, 0}};
-    
+    //Triangle <coord_t> treg{{1, 1, 2}, {0, 0, 0}, {1, 2, 0}};
+
     //cout << treg << endl;
 
-    Plane <coord_t> pl{{1, 1, 0}, {4, 4, 0}, {0, 0, 1}};
+    Plane <coord_t> pl{{1, 1, 0}, {1, 4, 0}, {1, 5, 1}};
     pl.calc_coeff();
 
     cout << pl << endl;

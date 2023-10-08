@@ -184,21 +184,21 @@ class Plane{
         }
 
         void calc_coeff(){
-            CA = (P2.y() - P2.x()) * P3.z() + (P2.x() - P2.z()) * P3.y() + (P2.z() - P2.y()) * P3.x();
-            CB = (P3.y() - P3.x()) * P1.z() + (P3.x() - P3.z()) * P1.y() + (P3.z() - P3.y()) * P1.x();
-            CC = (P1.y() - P1.x()) * P2.z() + (P1.x() - P1.z()) * P2.y() + (P1.z() - P1.y()) * P2.x();
-            CD =  P1.x() * P2.y() * P3.z()
-                - P1.x() * P2.z() * P3.y()
-                - P1.y() * P2.x() * P3.z()
-                + P1.y() * P2.z() * P3.x()
-                + P1.z() * P2.x() * P3.y()
-                - P1.z() * P2.y() * P3.x();
-            if (CD != 0){
-                CA /= CD;
-                CB /= CD;
-                CC /= CD;
-                CD = -1;
-            }
+            CA =  (P2.y() - P1.y()) * (P3.z() - P1.z()) - (P3.y() - P1.y()) * (P2.z() - P1.z());
+            CB = -(P2.x() - P1.x()) * (P3.z() - P1.z()) + (P3.x() - P1.x()) * (P2.z() - P1.z());
+            CC =  (P2.x() - P1.x()) * (P3.y() - P1.y()) - (P3.x() - P1.x()) * (P2.y() - P1.y());
+            CD = -(CA * P1.x() + CB * P1.y() + CC * P1.z());
+
+
+            // CA = (P2.y() - P2.x()) * P3.z() + (P2.x() - P2.z()) * P3.y() + (P2.z() - P2.y()) * P3.x();
+            // CB = (P3.y() - P3.x()) * P1.z() + (P3.x() - P3.z()) * P1.y() + (P3.z() - P3.y()) * P1.x();
+            // CC = (P1.y() - P1.x()) * P2.z() + (P1.x() - P1.z()) * P2.y() + (P1.z() - P1.y()) * P2.x();
+            // CD =  P1.x() * P2.y() * P3.z()
+            //     - P1.x() * P2.z() * P3.y()
+            //     - P1.y() * P2.x() * P3.z()
+            //     + P1.y() * P2.z() * P3.x()
+            //     + P1.z() * P2.x() * P3.y()
+            //     - P1.z() * P2.y() * P3.x();
             is_coeff_calced = true;
             
             return;
