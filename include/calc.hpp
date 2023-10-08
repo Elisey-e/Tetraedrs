@@ -22,6 +22,7 @@ template <typename point_t> class V_Line;
 template <typename point_t> class Plane;
 template <typename point_t> class Triangle;
 template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Plane<point_t>& plane);
+template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Triangle<point_t>& treg);
 
 template <typename point_t>
 class Point{
@@ -190,6 +191,9 @@ class Plane{
             CD = -(CA * P1.x() + CB * P1.y() + CC * P1.z());
             abs_of_normal_vector = std::sqrt(CA * CA + CB * CB + CC * CC);
             is_coeff_calced = true;
+            if (CA == 0 && CB == 0 && CC == 0){
+                throw "Is not plane!";
+            }
             
             return;
         }
@@ -245,6 +249,7 @@ std::ostream& operator << (std::ostream& stream, const Plane<point_t>& plane){
 
 template <typename point_t>
 class Triangle{
+    friend std::ostream& operator << <>(std::ostream&, const Triangle&);
     public:
         Triangle(Point<point_t> A, Point<point_t> B, Point<point_t> C): Pl{A, B, C}, L1{A, B}, L2{B, C}, L3{C, A} {
             Pl.calc_coeff();
@@ -360,11 +365,11 @@ class Triangle{
         }
 };
 
-// template <typename point_t>
-// std::ostream& operator << (std::ostream& stream, const Triangle<point_t>& treg){
-//     stream << "(" << std::round(treg.Pl.P1 * 100) << ", " << std::round(treg.Pl.P2 * 100) << ", " << std::round(treg.Pl.P3 * 100) << ")";
-//     return stream;
-// }
+template <typename point_t>
+std::ostream& operator << (std::ostream& stream, const Triangle<point_t>& treg){
+    stream << "(" << treg.Pl.P1 << ", " << treg.Pl.P2 << ", " << treg.Pl.P3 << ")";
+    return stream;
+}
 
 
 #endif

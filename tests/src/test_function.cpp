@@ -28,7 +28,7 @@ int main(){
 
     // cout << pl << endl;
 
-    Triangle <coord_t> treg2{{0, 0, 1}, {0, 0, 2}, {1, 1, 2}};
+    Triangle <coord_t> treg2{{0, 0, 0}, {1, 1, 1}, {3, 3, 3}};
 
     cout << treg.is_intersection(treg2) << endl;
 
