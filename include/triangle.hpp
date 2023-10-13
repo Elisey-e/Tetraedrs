@@ -19,11 +19,11 @@ class Triangle{
         bool is_intersection(const Triangle<point_t>& treug){
             // Тут какое нибудь частное непересечение
 
-            // Смотрим, насколько близки коэффициенты плоскостей; если меньше эпсилон, то проецируем треугольники на одну плоскость и далее проверяем почти также, как ниже, только для точек треугольников
-
             Point <point_t> inter = Pl.intersect_with_line(treug.L1);
 
             if (not inter.is_point_nan){
+                //cout << "--------------------------\n";
+                //cout << inter << endl;
                 if(is_point_in_triangle(inter)){
                     return true;
                 }

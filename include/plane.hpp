@@ -59,8 +59,8 @@ class Plane{
                 return ans;
             }
             else{
-                dist1 = abs(dist1);
-                dist2 = abs(dist2);
+                dist1 = fabs(dist1);
+                dist2 = fabs(dist2);
                 Point <point_t> ans((line.P1.c1 * dist2 + line.P2.c1 * dist1) / (dist1 + dist2),
                                     (line.P1.c2 * dist2 + line.P2.c2 * dist1) / (dist1 + dist2),
                                     (line.P1.c3 * dist2 + line.P2.c3 * dist1) / (dist1 + dist2));
@@ -81,25 +81,6 @@ class Plane{
             
             return;
         }
-
-        // int is_planes_equal(Plane<point_t> Pl){
-        //     if ((not is_coeff_calced) || (not Pl.is_coeff_calced))
-        //         return -1;
-        //     else{
-        //         if (CD > Pl.CD){
-        //             if (CD % Pl.CD == 0){
-        //                 point_t k = CD / Pl.CD;
-        //                 if (Pl.CC * k == CC && Pl.CB * k == CB && Pl.CA * k == CA){
-        //                     return 1;
-        //                 }
-        //             }
-        //             return 0;
-        //         }
-        //         else if (){
-
-        //         }
-        //     }
-        // }
 
     private:
         Point<point_t> P1;
