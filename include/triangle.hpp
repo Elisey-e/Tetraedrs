@@ -8,16 +8,25 @@ class Triangle{
     friend std::ostream& operator << <>(std::ostream&, const Triangle&);
     public:
         Triangle(Point<point_t> A, Point<point_t> B, Point<point_t> C): Pl{A, B, C}, L1{A, B}, L2{B, C}, L3{C, A} {
-            Pl.calc_coeff();
-            L1.calc_len();
-            L2.calc_len();
-            L3.calc_len();
-            Pl.print_point_form = true;
-            reduce_triangle_to_2d();
+            try{
+                Pl.calc_coeff();
+                L1.calc_len();
+                L2.calc_len();
+                L3.calc_len();
+                Pl.print_point_form = true;
+                reduce_triangle_to_2d();
+            }
+            catch (...)
+            {
+                is_correct = false;
+            }
         }
 
         bool is_intersection(const Triangle<point_t>& treug){
             // Тут какое нибудь частное непересечение
+            if ((not treug.is_correct) || (not is_correct)){
+                return false;
+            }
 
             Point <point_t> inter = Pl.intersect_with_line(treug.L1);
 
@@ -73,6 +82,7 @@ class Triangle{
         V_Line<point_t> L2;
         V_Line<point_t> L3;
 
+        bool is_correct = true;
         int num_of_2d_reduced_coord = 0;
 
         void reduce_triangle_to_2d(){
@@ -87,7 +97,7 @@ class Triangle{
             }
             return;
         }
-        
+
         bool is_point_in_triangle(const Point<point_t>& point) const{
             if (not num_of_2d_reduced_coord){
                 throw "triangle not reduced to 2d!";
