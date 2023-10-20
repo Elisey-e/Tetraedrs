@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+template <typename point_t> class Plane;
+template <typename point_t> class Triangle;
+
 template <typename point_t>
 class Point{
     friend class Plane<point_t>;
@@ -30,6 +33,13 @@ class Point{
 
         Point operator - (const Point<point_t>& other){
             return Point{c1 - other.c1, c2 - other.c2, c3 - other.c3};
+        }
+
+        bool operator == (const Point<point_t>& other){
+            if (c1 == other.c1 && c2 == other.c2 && c3 == other.c3){
+                return true;
+            }
+            return false;
         }
 
         // ~Point() = default;

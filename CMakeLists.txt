@@ -19,8 +19,11 @@ enable_testing()
 #   set(CMAKE_INSTALL_PREFIX .)
 # endif()
 
-set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/tests/e2e_tests)
+set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/tests/src/e2e_tests)
 
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
 add_subdirectory(tests)
+
+add_subdirectory(tests/src/e2e_tests)
+add_subdirectory(tests/src/unit_tests)

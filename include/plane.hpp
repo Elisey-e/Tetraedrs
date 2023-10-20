@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+template <typename point_t> class Triangle;
+template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Plane<point_t>& plane);
+
 template <typename point_t>
 class Plane{
     friend class Triangle<point_t>;

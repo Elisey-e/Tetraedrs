@@ -10,6 +10,9 @@ target_link_libraries(e2e_tests
 target_include_directories(e2e_tests
                            PRIVATE ${INCLUDE_DIR})
 
-gtest_discover_tests(e2e_tests)
+#gtest_discover_tests(e2e_tests)
+
+install(TARGETS e2e_tests
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # Подкорректировать

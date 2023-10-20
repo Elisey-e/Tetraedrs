@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cmath>
 
+template <typename point_t> class Plane;
+
 template <typename point_t>
 class V_Line{                   // Вектор, ориентированная линия
     friend class Plane<point_t>;

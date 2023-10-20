@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Triangle<point_t>& treg);
+
 template <typename point_t>
 class Triangle{
     friend std::ostream& operator << <>(std::ostream&, const Triangle&);
