@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <cmath>
-
-template <typename point_t> class Plane;
+#include <point.hpp>
 
 template <typename point_t>
 class V_Line{                   // Вектор, ориентированная линия
@@ -23,12 +22,23 @@ class V_Line{                   // Вектор, ориентированная 
             return V_Line(P1, P2 - other.P2 + other.P1);
         }
 
-        void calc_len(){
+        bool operator == (const V_Line<point_t>& other){
+            if (P1 == other.P1 && P2 == other.P2){
+                return true;
+            }
+            return false;
+        }
+
+        V_Line calc_len(){
             lenght=sqrt((P1.x() - P2.x()) * (P1.x() - P2.x()) +
                         (P1.y() - P2.y()) * (P1.y() - P2.y()) +
                         (P1.z() - P2.z()) * (P1.z() - P2.z()));
             is_lenght_calced = true;
-            return;
+            return *this;
+        }
+
+        point_t len(){
+            return lenght;
         }
 
     private:
