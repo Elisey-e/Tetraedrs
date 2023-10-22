@@ -17,6 +17,7 @@ class Triangle{
                 L3.calc_len();
                 Pl.print_point_form = true;
                 reduce_triangle_to_2d();
+                //cout << Pl << endl;
             }
             catch (...)
             {
@@ -30,55 +31,36 @@ class Triangle{
                 return false;
             }
 
-            Point <point_t> inter = Pl.intersect_with_line(treug.L1);
-            //cout << inter << inter.is_point_nan << endl;
+            //cout << treug.Pl << "-------" << Pl << endl;
 
-            if (not inter.is_point_nan){
-                //cout << "--------------------------\n";
-                //cout << inter << endl;
-                if(is_point_in_triangle(inter)){
-                    return true;
-                }
+            Point <point_t> inter = Pl.intersect_with_line(treug.L1);
+            if(is_line_intersect(inter, *this)){
+                return true;
             }
 
             inter = Pl.intersect_with_line(treug.L2);
-            //cout << inter << inter.is_point_nan << endl;
-            if (not inter.is_point_nan){
-                if(is_point_in_triangle(inter)){
-                    return true;
-                }
+            if(is_line_intersect(inter, *this)){
+                return true;
             }
 
             inter = Pl.intersect_with_line(treug.L3);
-            //cout << inter << inter.is_point_nan << endl;
-            if (not inter.is_point_nan){
-                if(is_point_in_triangle(inter)){
-                    return true;
-                }
+            if(is_line_intersect(inter, *this)){
+                return true;
             }
 
             inter = treug.Pl.intersect_with_line(L1);
-            //cout << inter << inter.is_point_nan << endl;
-            if (not inter.is_point_nan){
-                if(treug.is_point_in_triangle(inter)){
-                    return true;
-                }
+            if(is_line_intersect(inter, treug)){
+                return true;
             }
 
             inter = treug.Pl.intersect_with_line(L2);
-            //cout << inter << inter.is_point_nan << endl;
-            if (not inter.is_point_nan){
-                if(treug.is_point_in_triangle(inter)){
-                    return true;
-                }
+            if(is_line_intersect(inter, treug)){
+                return true;
             }
 
             inter = treug.Pl.intersect_with_line(L3);
-            //cout << inter << inter.is_point_nan << endl;
-            if (not inter.is_point_nan){
-                if(treug.is_point_in_triangle(inter)){
-                    return true;
-                }
+            if(is_line_intersect(inter, treug)){
+                return true;
             }
 
             return false;
@@ -90,17 +72,33 @@ class Triangle{
         V_Line<point_t> L2;
         V_Line<point_t> L3;
 
+        bool is_line_intersect(const Point<point_t>& inter, const Triangle<point_t>& treug){
+            //cout << inter << inter.is_point_nan << endl;
+            if (not inter.is_point_nan){
+                if(treug.is_point_in_triangle(inter)){
+                    return true;
+                }
+            }
+            else if(inter.is_point_inf){
+                return false;           // Возможно стоит добавить рассмотрение этого частного случая
+            }
+            return false;
+        }
+
         bool is_correct = true;
         int num_of_2d_reduced_coord = 0;
 
         void reduce_triangle_to_2d(){
-            if (Pl.CA >= Pl.CB && Pl.CA >= Pl.CC){
+            point_t kx = fabs(Pl.CA);
+            point_t ky = fabs(Pl.CB);
+            point_t kz = fabs(Pl.CC);
+            if (kx >= ky && kx >= kz){
                 num_of_2d_reduced_coord = 1;
             }
-            if (Pl.CB >= Pl.CA && Pl.CB >= Pl.CC){
+            if (ky >= kx && ky >= kz){
                 num_of_2d_reduced_coord = 2;
             }
-            if (Pl.CC >= Pl.CA && Pl.CC >= Pl.CB){
+            if (kz >= kx && kz >= ky){
                 num_of_2d_reduced_coord = 3;
             }
             return;

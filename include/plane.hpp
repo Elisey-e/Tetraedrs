@@ -59,6 +59,7 @@ class Plane{
             if ((dist1 > 0 && dist2 > 0) || (dist1 < 0 && dist2 < 0)){
                 Point <point_t> ans(0, 0, 0);
                 ans.is_point_nan = true;
+                ans.is_point_inf = true;
                 return ans;
             }
             else{

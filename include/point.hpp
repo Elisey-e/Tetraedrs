@@ -12,6 +12,7 @@ class Point{
     friend class Triangle<point_t>;
     public:
         bool is_point_nan = false;
+        bool is_point_inf = false;
 
         Point(point_t a, point_t b, point_t c): c1(a), c2(b), c3(c) {}
 
