@@ -76,12 +76,17 @@ int main(){
                 }
             }
             int iter_c = 0;
-            for (int i : ans){
-                if(iter_c == static_cast<int>(correct_answer.size()) || correct_answer[iter_c] != i){
-                    is_ans_corr = false;
-                }
-                std::cout << i << " ";
-                ++iter_c;
+            if (ans.size() != correct_answer.size()){
+                is_ans_corr = false;
+            }
+            else{
+                for (int i : ans){
+                    if(iter_c == static_cast<int>(correct_answer.size()) || correct_answer[iter_c] != i){
+                        is_ans_corr = false;
+                    }
+                    std::cout << i << " ";
+                    ++iter_c;
+            }
             }
         }
         catch(const char* error_message)

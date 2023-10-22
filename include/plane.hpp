@@ -64,6 +64,11 @@ class Plane{
             else{
                 dist1 = fabs(dist1);
                 dist2 = fabs(dist2);
+                if (dist1 + dist2 == 0.0){
+                    Point <point_t> ans(0, 0, 0);
+                    ans.is_point_nan = true;
+                    return ans;
+                }
                 Point <point_t> ans((line.P1.c1 * dist2 + line.P2.c1 * dist1) / (dist1 + dist2),
                                     (line.P1.c2 * dist2 + line.P2.c2 * dist1) / (dist1 + dist2),
                                     (line.P1.c3 * dist2 + line.P2.c3 * dist1) / (dist1 + dist2));

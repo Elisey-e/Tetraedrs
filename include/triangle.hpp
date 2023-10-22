@@ -31,6 +31,7 @@ class Triangle{
             }
 
             Point <point_t> inter = Pl.intersect_with_line(treug.L1);
+            //cout << inter << inter.is_point_nan << endl;
 
             if (not inter.is_point_nan){
                 //cout << "--------------------------\n";
@@ -41,6 +42,7 @@ class Triangle{
             }
 
             inter = Pl.intersect_with_line(treug.L2);
+            //cout << inter << inter.is_point_nan << endl;
             if (not inter.is_point_nan){
                 if(is_point_in_triangle(inter)){
                     return true;
@@ -48,6 +50,7 @@ class Triangle{
             }
 
             inter = Pl.intersect_with_line(treug.L3);
+            //cout << inter << inter.is_point_nan << endl;
             if (not inter.is_point_nan){
                 if(is_point_in_triangle(inter)){
                     return true;
@@ -55,6 +58,7 @@ class Triangle{
             }
 
             inter = treug.Pl.intersect_with_line(L1);
+            //cout << inter << inter.is_point_nan << endl;
             if (not inter.is_point_nan){
                 if(treug.is_point_in_triangle(inter)){
                     return true;
@@ -62,6 +66,7 @@ class Triangle{
             }
 
             inter = treug.Pl.intersect_with_line(L2);
+            //cout << inter << inter.is_point_nan << endl;
             if (not inter.is_point_nan){
                 if(treug.is_point_in_triangle(inter)){
                     return true;
@@ -69,6 +74,7 @@ class Triangle{
             }
 
             inter = treug.Pl.intersect_with_line(L3);
+            //cout << inter << inter.is_point_nan << endl;
             if (not inter.is_point_nan){
                 if(treug.is_point_in_triangle(inter)){
                     return true;
@@ -127,7 +133,8 @@ class Triangle{
             default:
                 break;
             }
-            if ((len1 > 0 && len2 > 0 && len3 > 0) || (len1 < 0 && len2 < 0 && len3 < 0)){
+            //cout << len1 << " " << len2 << " " << len3 << endl;
+            if ((len1 > 0 && len2 > 0 && len3 > 0) || (len1 < 0 && len2 < 0 && len3 < 0) || (len1 == 0) || (len2 == 0) || (len3 == 0)){
                 return true;
             }
             return false;
