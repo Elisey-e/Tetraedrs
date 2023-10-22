@@ -120,6 +120,8 @@ int main(){
         }
 
         std::cout << endl;
+        test_data.close();
+        fans_data.close();
     }
 
     cout << "\nTOTAL:\t" << total << "\nOKEY:\t" << total_ok << "\nWRONG:\t" << total_wa << endl;
