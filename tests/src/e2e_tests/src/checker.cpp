@@ -19,10 +19,13 @@ int main(){
 
     // Iterate over the std::filesystem::directory_entry elements explicitly
 
-    
+    int total_ok = 0;
+    int total_wa = 0;
+    int total = 0;
     
     
     for (auto const& dir_entry : fs::recursive_directory_iterator("../tests/src/test_files")){
+        ++total;
         std::cout << "Testing: " << dir_entry << "\t\t";
         std::cout << "\n\tAnswer: ";
         std::fstream test_data;
@@ -78,6 +81,10 @@ int main(){
             int iter_c = 0;
             if (ans.size() != correct_answer.size()){
                 is_ans_corr = false;
+                //cout << "hvfjdhf" << ans.size() << correct_answer.size() << *ans.begin() << *ans.end();
+                for (int i : ans){
+                    std::cout << i << " ";
+                }
             }
             else{
                 for (int i : ans){
@@ -105,12 +112,22 @@ int main(){
         std::cout << "Result: ";
         if (not is_ans_corr){
             std::cout << "WA";
+            ++total_wa;
         }
         else{
             std::cout << "OK";
+            ++total_ok;
         }
 
         std::cout << endl;
+    }
+
+    cout << "\nTOTAL:\t" << total << "\nOKEY:\t" << total_ok << "\nWRONG:\t" << total_wa << endl;
+    if (total_ok == total){
+        cout << "RESULT: CORRECT\n\n";
+    }
+    else{
+        cout << "RESULT: BAD ANSWER\n\n";
     }
 
 
