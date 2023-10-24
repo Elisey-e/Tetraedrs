@@ -13,10 +13,12 @@ int main(){
 
     std::ofstream gen_data;
     gen_data.open("../tests/src/test_files/long_test.dat");
+    int count = 20;
+    gen_data << count * count * count << endl;
 
-    for (int i = 0; i < 12; ++i){
-        for (int j = 0; j < 12; ++j){
-            for(int k = 0; k < 12; ++k){
+    for (int i = 0; i < count; ++i){
+        for (int j = 0; j < count; ++j){
+            for(int k = 0; k < count; ++k){
                 gen_data << i * 3 + 0.5 + 2 * (rand() + 0.0) / RAND_MAX << " " 
                          << j * 3 + 0.5 + 2 * (rand() + 0.0) / RAND_MAX << " "
                          << k * 3 + 0.5 + 2 * (rand() + 0.0) / RAND_MAX << " "

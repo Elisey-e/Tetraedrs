@@ -2,6 +2,8 @@
 #define c_plane
 
 #include <iostream>
+#include <point.hpp>
+#include <v_line.hpp>
 
 template <typename point_t> class Triangle;
 template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Plane<point_t>& plane);

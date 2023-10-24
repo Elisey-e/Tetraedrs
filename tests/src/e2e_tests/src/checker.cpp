@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <fstream>
 #include <list>
+#include <chrono>
 
 namespace fs = std::filesystem;
 
@@ -55,6 +56,8 @@ int main(){
 
         bool is_ans_corr = true;
 
+        auto start = std::chrono::system_clock::now();
+
         try{
             int N;
             std::vector <Triangle<coord_t>> data;
@@ -103,6 +106,8 @@ int main(){
             continue;
         }
 
+        auto end = std::chrono::system_clock::now();
+
         std::cout << "\n\tExpected: ";
 
         for (auto i : correct_answer){
@@ -120,6 +125,10 @@ int main(){
         }
 
         std::cout << endl;
+
+        std::chrono::duration<double> elapsed_seconds = end - start;
+        std::cout << "\tElapsed Time: " << elapsed_seconds.count() << " sec" << std::endl;
+
         test_data.close();
         fans_data.close();
     }

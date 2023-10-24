@@ -30,7 +30,7 @@ int main(){
         }
 
         for (int i : ans){
-            cout << i + 1 << " ";
+            cout << i << endl;
         }
         cout << endl;
     }

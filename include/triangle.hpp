@@ -2,6 +2,9 @@
 #define c_triangle
 
 #include <iostream>
+#include <point.hpp>
+#include <v_line.hpp>
+#include <plane.hpp>
 
 template <typename point_t> std::ostream& operator<<(std::ostream& stream, const Triangle<point_t>& treg);
 
@@ -27,6 +30,11 @@ class Triangle{
 
         bool is_intersection(const Triangle<point_t>& treug){
             // Тут какое нибудь частное непересечение
+            V_Line<point_t> quick_test{treug.Pl.P1, Pl.P1};
+            if (quick_test.calc_len().lenght > maximum(L1.lenght, L3.lenght) + maximum(treug.L1.lenght, treug.L3.lenght)){
+                return false;
+            }
+
             if ((not treug.is_correct) || (not is_correct)){
                 return false;
             }
@@ -71,6 +79,13 @@ class Triangle{
         V_Line<point_t> L1;
         V_Line<point_t> L2;
         V_Line<point_t> L3;
+
+        point_t maximum(point_t a, point_t b){
+            if (a > b){
+                return a;
+            }
+            return b;
+        }
 
         bool is_line_intersect(const Point<point_t>& inter, const Triangle<point_t>& treug){
             //cout << inter << inter.is_point_nan << endl;

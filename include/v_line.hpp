@@ -8,6 +8,7 @@
 template <typename point_t>
 class V_Line{                   // Вектор, ориентированная линия
     friend class Plane<point_t>;
+    friend class Triangle<point_t>;
     public:
         V_Line(Point<point_t> A, Point<point_t> B): P1(A), P2(B) {}
 
