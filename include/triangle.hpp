@@ -147,7 +147,7 @@ class Triangle{
                 break;
             }
             //cout << len1 << " " << len2 << " " << len3 << endl;
-            if ((len1 > 0 && len2 > 0 && len3 > 0) || (len1 < 0 && len2 < 0 && len3 < 0) || (len1 == 0) || (len2 == 0) || (len3 == 0)){
+            if ((len1 >= 0 && len2 >= 0 && len3 >= 0) || (len1 <= 0 && len2 <= 0 && len3 <= 0)){
                 return true;
             }
             return false;

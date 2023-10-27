@@ -65,6 +65,7 @@ class Plane{
                 return ans;
             }
             else{
+                //cout << dist1 << " " << dist2 << " ";
                 dist1 = fabs(dist1);
                 dist2 = fabs(dist2);
                 if (dist1 + dist2 == 0.0){
